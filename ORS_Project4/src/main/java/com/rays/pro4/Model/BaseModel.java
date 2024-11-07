@@ -16,7 +16,7 @@ import com.rays.pro4.Util.DataUtility;
 import com.rays.pro4.Util.JDBCDataSource;
 
 /**
- * The Class BaseModel
+ * The Class BaseModel 
  * 
  * @author  Kapil Dudhe
  *
@@ -30,8 +30,6 @@ public abstract class BaseModel implements  Serializable,DropdownListBean {
 	protected String modifiedBy;
 	protected Timestamp createdDatetime;
 	protected Timestamp modifiedDateTime;
-	
-	
 	public static Logger getLog() {
 		return log;
 	}

@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-
+<!DOCTYPE html> 
 <%@page import="com.rays.pro4.Bean.UserBean"%>
 <%@page import="com.rays.pro4.Bean.RoleBean"%>
 <%@ page import ="com.rays.pro4.controller.LoginCtl" %>
@@ -8,7 +7,7 @@
     pageEncoding="ISO-8859-1"%>
 <html>
 
-
+				
 <body >
 	<%
     UserBean userBean = (UserBean)session.getAttribute("user");
@@ -31,19 +30,18 @@
             	<%
             		if (userLoggedIn) {
       		 	 %> 
-       <a href=" <%=ORSView.LOGIN_CTL%>?operation=<%=LoginCtl.OP_LOG_OUT%>">Logout</b></a>
+       <a href=" <%=ORSView.LOGIN_CTL%>?operation=<%=LoginCtl.OP_LOG_OUT%>">Logout</b></a> 
 
             <%
                 } else {
             %> 
             <a href="<%=ORSView.LOGIN_CTL%>">Login</b></a> 
             <%
-  			   }
+  			   } 
 			 %>
-			
  		</td>
         <td rowspan="2" >
-            <h1 align="" >
+            <h1 align="right" >
                 <img src= "<%=ORSView.APP_CONTEXT %>/img/customLogo.jpg"  width="175" height="50">
             </h1>
         </td>
@@ -72,7 +70,7 @@
             if (userBean.getRoleId() == RoleBean.ADMIN) {
         %> 
        
-        <a  href="<%=ORSView.MARKSHEET_CTL%>">Add Marksheet</b></a> |       
+        <a href="<%=ORSView.MARKSHEET_CTL%>">Add Marksheet</b></a> |     
         <a href="<%=ORSView.MARKSHEET_LIST_CTL%>">Marksheet List</b></a> |
         <a href="<%=ORSView.USER_CTL%>">Add User</b></a> | 
         <a href="<%=ORSView.USER_LIST_CTL%>">User List</b></a> |         

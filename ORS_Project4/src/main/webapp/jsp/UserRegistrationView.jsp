@@ -25,7 +25,7 @@
 		$("#udate").datepicker({
 			changeMonth : true,
 			changeYear : true,
-			yearRange : '1960:2002',
+			yearRange : '1980:2002',
 		//  mindefaultDate : "01-01-1962"
 		});
 	});
@@ -39,14 +39,11 @@
 
 	<form action="<%=ORSView.USER_REGISTRATION_CTL%>" method="post">
 
-		<input type="hidden" name="id" value="<%=bean.getId()%>"> <input
-			type="hidden" name="createdBy" value="<%=bean.getCreatedBy()%>">
-		<input type="hidden" name="modifiedBy"
-			value="<%=bean.getModifiedBy()%>"> <input type="hidden"
-			name="createdDatetime"
-			value="<%=DataUtility.getTimestamp(bean.getCreatedDatetime())%>">
-		<input type="hidden" name="modifiedDatetime"
-			value="<%=DataUtility.getTimestamp(bean.getModifiedDatetime())%>">
+		<input type="hidden" name="id" value="<%=bean.getId()%>"> 
+		<input type="hidden" name="createdBy" value="<%=bean.getCreatedBy()%>">
+		<input type="hidden" name="modifiedBy"value="<%=bean.getModifiedBy()%>">
+		 <input type="hidden"name="createdDatetime"value="<%=DataUtility.getTimestamp(bean.getCreatedDatetime())%>">
+		<input type="hidden" name="modifiedDatetime"value="<%=DataUtility.getTimestamp(bean.getModifiedDatetime())%>">
 
 		<div align="center">
 			<h1>User Registration</h1>
@@ -132,7 +129,7 @@
 						:
 					</th>
 					<td><input type="text" name="dob" id="udate"
-						readonly="readonly" size="25" placeholder="Enter Dob "
+						readonly="" size="25" placeholder="Enter Dob "
 						value="<%=DataUtility.getDateString(bean.getDob())%>"></td>
 					<td style="position: fixed"><font color="red"> <%=ServletUtility.getErrorMessage("dob", request)%></font></td>
 				</tr>

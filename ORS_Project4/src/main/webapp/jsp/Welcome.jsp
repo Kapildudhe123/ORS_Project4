@@ -8,10 +8,9 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Welcome Page</title>
-<link rel="icon" type="image/png"
-	href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16x16" />
 </head>
 <body>
+
 	<form action="<%=ORSView.WELCOME_CTL%>">
 	<%@ include file="Header.jsp"%>
 		<h1 align="Center">
@@ -19,6 +18,7 @@
 		</h1>
 
 		<%
+		System.out.println("WelcomeView");
 			UserBean beanUserBean = (UserBean) session.getAttribute("user");
 			if (beanUserBean != null) {
 				if (beanUserBean.getRoleId() == RoleBean.STUDENT) {

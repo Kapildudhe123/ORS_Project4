@@ -126,7 +126,7 @@ public class UserBean extends BaseBean {
 	}
 	public String getValue() {
 		// TODO Auto-generated method stub
-		 return firstName + " " + lastName;
+		 return dob+"";
 	}
 
 	@Override

@@ -1,3 +1,4 @@
+
 <%@page import="com.rays.pro4.Bean.UserBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -14,10 +15,16 @@
 	href="<%=ORSView.APP_CONTEXT%>/img/logo.png" sizes="16x16" />
 </head>
 <body>
+<!-- <style >
+a{text-decoration: none;}
 
 
+</style> -->
+
 	<br>
+	<br><br>
 	<br>
+<br>
 	<%
 		UserBean userBean = (UserBean) session.getAttribute("user");
 
@@ -28,10 +35,9 @@
 
 		}
 	%>
- <!--  <marquee behavior="alternate" scrollamount="300" loop="1">  -->
+	<!-- <marquee behavior="alternate" scrollamount="300" loop="1"> -->
 	<div align="center">
-	<br><br>
-		<img src="img/customLogo.jpg" align="center" width="318" height="127"
+		<img src="img/customLogo.jpg" align="middle" width="318" height="127"
 			border="0">
 	</div>
 	<!-- </marquee> -->
@@ -40,10 +46,12 @@
 	<br>
 
 	<h1 align="center">
-		<font size="10px" color="red"> <a 
-			href="<%=ORSView.WELCOME_CTL%>">Online Result System</a></font>
-				
-
-	</h1>
+	
+		<font size="10px" color="red"> <a
+			href="<%=ORSView.WELCOME_CTL %>" >Online Result System</a></font>
+			
+	<!-- style="text-decoration:none" -->
+	 
+			</h1>
 </body>
 </html>

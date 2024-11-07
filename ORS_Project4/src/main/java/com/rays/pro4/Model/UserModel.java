@@ -2,6 +2,7 @@ package com.rays.pro4.Model;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ import com.rays.pro4.Exception.ApplicationException;
 import com.rays.pro4.Exception.DatabaseException;
 import com.rays.pro4.Exception.DuplicateRecordException;
 import com.rays.pro4.Exception.RecordNotFoundException;
-import com.rays.pro4.Util.DataUtility;
 import com.rays.pro4.Util.EmailBuilder;
 import com.rays.pro4.Util.EmailMessage;
 import com.rays.pro4.Util.EmailUtility;
@@ -85,8 +85,11 @@ public class UserModel {
 			pstmt.setString(3, bean.getLastName());
 			pstmt.setString(4, bean.getLogin());
 			pstmt.setString(5, bean.getPassword());
+
 			// date of birth caste by sql date
+
 			pstmt.setDate(6, new Date(bean.getDob().getTime()));
+
 			pstmt.setString(7, bean.getMobileNo());
 			pstmt.setLong(8, bean.getRoleId());
 			pstmt.setInt(9, bean.getUnSuccessfulLogin());
@@ -152,7 +155,7 @@ public class UserModel {
 	}
 
 	public UserBean findByLogin(String login) throws ApplicationException {
-		log.debug("Model findByLohin Started");
+		log.debug("Model findByLogin Started");
 		String sql = "SELECT * FROM ST_USER WHERE login=?";
 		UserBean bean = null;
 		Connection conn = null;
@@ -198,7 +201,7 @@ public class UserModel {
 	public UserBean findByPK(long pk) throws ApplicationException {
 		log.debug("Model findBy PK start");
 		String sql = "SELECT * FROM ST_USER WHERE ID=?";
-		UserBean bean = null;	
+		UserBean bean = null;
 		Connection conn = null;
 		try {
 			conn = JDBCDataSource.getConnection();
@@ -293,7 +296,7 @@ public class UserModel {
 
 	public List search(UserBean bean, int pageNo, int pageSize) throws ApplicationException {
 		log.debug("Model Search Start");
-		StringBuffer sql = new StringBuffer("SELECT * FROM ST_USER WHERE 1=1");
+		StringBuffer sql = new StringBuffer("SELECT * FROM ST_USER where 1=1");
 		if (bean != null) {
 			if (bean.getFirstName() != null && bean.getFirstName().length() > 0) {
 				sql.append(" AND FIRST_NAME like '" + bean.getFirstName() + "%'");
@@ -314,8 +317,11 @@ public class UserModel {
 			if (bean.getPassword() != null && bean.getPassword().length() > 0) {
 				sql.append(" AND PASSWORD like '" + bean.getPassword() + "%'");
 			}
-			
-			  if (bean.getMobileNo() != null && bean.getMobileNo().length() > 0) {
+			if (bean.getDob() != null && bean.getDob().getTime() > 0) {
+				Date d = new java.sql.Date(bean.getDob().getTime());
+				sql.append(" AND DOB like '" + d + "%'");
+			}
+			if (bean.getMobileNo() != null && bean.getMobileNo().length() > 0) {
 				sql.append(" AND MOBILE_NO = " + bean.getMobileNo());
 			}
 			if (bean.getUnSuccessfulLogin() > 0) {
@@ -325,25 +331,18 @@ public class UserModel {
 				sql.append(" AND GENDER like '" + bean.getGender() + "%'");
 			}
 
-			if (bean.getDob() != null && bean.getDob().getTime() > 0) {
-				sql.append(" AND DOB like  '" + new java.sql.Date(bean.getDob().getTime()) + "%'");
-			}
-
 			/*
 			 * if (bean.getDob() != null && bean.getDob().getTime() > 0) { Date d = new
-			 * java.sql.Date(bean.getDob().getTime()); sql.append(" AND DOB like  '" + d +
-			 * "%'"); }
+			 * Date(bean.getDob().getTime()); sql.append("AND DOB = '" +
+			 * DataUtility.getDateString(d) + "'"); }
 			 */
-			// System.out.println(sql.toString());
 		}
-
 		// if page size is greater than zero then apply pagination
 		if (pageSize > 0) {
 			// Calculate start record index
 			pageNo = (pageNo - 1) * pageSize;
 
 			sql.append(" Limit " + pageNo + ", " + pageSize);
-
 			// sql.append(" limit " + pageNo + "," + pageSize);
 		}
 
@@ -470,8 +469,7 @@ public class UserModel {
 			}
 		} catch (Exception e) {
 			log.error("Database Exception...", e);
-			e.printStackTrace();
-			// throw new ApplicationException("Exception : Exception in get roles");
+			throw new ApplicationException("Exception : Exception in get roles");
 
 		} finally {
 			JDBCDataSource.closeConnection(conn);
@@ -495,6 +493,7 @@ public class UserModel {
 			sql.append(" limit " + pageNo + "," + pageSize);
 		}
 
+		System.out.println("preload........" + sql);
 		Connection conn = null;
 
 		try {
@@ -539,7 +538,7 @@ public class UserModel {
 	public boolean changePassword(Long id, String oldPassword, String newPassword)
 			throws ApplicationException, RecordNotFoundException {
 
-		log.debug("Model chanfwPassword Started");
+		log.debug("Model changePassword Started");
 		boolean flag = false;
 		UserBean beanexist = null;
 
@@ -601,7 +600,6 @@ public class UserModel {
 
 	public boolean forgetPassword(String login) throws ApplicationException, RecordNotFoundException {
 		UserBean userData = findByLogin(login);
-
 		boolean flag = false;
 
 		if (userData == null) {

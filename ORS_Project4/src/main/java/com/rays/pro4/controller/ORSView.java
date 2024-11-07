@@ -8,17 +8,13 @@ package com.rays.pro4.controller;
 public interface ORSView {
 
 
-	 public String APP_CONTEXT = "/ORS_Project4";
-
-	   public String LAYOUT_VIEW = "/BaseLayout.jsp";
-	    
+	    public String APP_CONTEXT = "/ORS_Project4";
+	    public String LAYOUT_VIEW = "/BaseLayout.jsp";
 	    public static String PAGE_FOLDER = "/jsp";
-
 	    public String JAVA_DOC_VIEW = APP_CONTEXT + "/doc/index.html";
-
-
-	    public String MARKSHEET_VIEW = PAGE_FOLDER + "/MarksheetView.jsp";
-
+	    		
+	 
+	    public String MARKSHEET_VIEW =PAGE_FOLDER + "/MarksheetView.jsp";
 	    public String MARKSHEET_LIST_VIEW = PAGE_FOLDER + "/MarksheetListView.jsp";
 	    public String GET_MARKSHEET_VIEW = PAGE_FOLDER + "/GetMarksheetView.jsp";
 	    public String USER_VIEW = PAGE_FOLDER + "/UserView.jsp";
@@ -84,6 +80,3 @@ public interface ORSView {
 	    public String ERROR_CTL = APP_CONTEXT + "/ErrorCtl";
 	
 }
-
-
-

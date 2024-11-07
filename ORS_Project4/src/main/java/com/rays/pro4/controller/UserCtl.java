@@ -1,4 +1,4 @@
-package com.rays.pro4.controller;
+ package com.rays.pro4.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -44,14 +44,11 @@ public class UserCtl extends BaseCtl {
 	 */
 	@Override
 	protected void preload(HttpServletRequest request) {
-
+		System.out.println("uctl preload");
 		RoleModel model = new RoleModel();
-
 		try {
 			List l = model.list();
-
 			request.setAttribute("roleList", l);
-
 		} catch (ApplicationException e) {
 			log.error(e);
 		}
@@ -74,7 +71,7 @@ public class UserCtl extends BaseCtl {
 			request.setAttribute("firstName", PropertyReader.getValue("error.require", "First Name"));
 			pass = false;
 		} else if (!DataValidator.isName(request.getParameter("firstName"))) {
-			request.setAttribute("firstName", "First name must contains alphabet only");
+			request.setAttribute("firstName","First name must contains alphabet only");
 			pass = false;
 		}
 
@@ -169,8 +166,6 @@ public class UserCtl extends BaseCtl {
 
 		bean.setRoleId(DataUtility.getLong(request.getParameter("roleId")));
 
-		System.out.println("populate role idddddddd =" + bean.getRoleId());
-
 		bean.setFirstName(DataUtility.getString(request.getParameter("firstName")));
 
 		bean.setLastName(DataUtility.getString(request.getParameter("lastName")));
@@ -207,25 +202,18 @@ public class UserCtl extends BaseCtl {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		log.debug("UserCtl Method doGet Started");
-
 		System.out.println("u ctl do get 1111111");
-
 		String op = DataUtility.getString(request.getParameter("operation"));
 		// get model
 		UserModel model = new UserModel();
-
 		long id = DataUtility.getLong(request.getParameter("id"));
-
 		if (id > 0 || op != null) {
-			System.out.println("id  "+id);
+			System.out.println("in id > 0  condition");
 			UserBean bean;
 			try {
 				bean = model.findByPK(id);
-
 				System.out.println(bean);
-
 				ServletUtility.setBean(bean, request);
-
 			} catch (ApplicationException e) {
 				log.error(e);
 				ServletUtility.handleException(e, request, response);
@@ -233,10 +221,8 @@ public class UserCtl extends BaseCtl {
 			}
 		}
 		log.debug("UserCtl Method doGet Ended");
-		
-		System.out.println("second id "+id);
 		ServletUtility.forward(getView(), request, response);
-
+	
 	}
 
 	/*
@@ -253,35 +239,39 @@ public class UserCtl extends BaseCtl {
 		log.debug("UserCtl Method doPost Started");
 
 		String op = DataUtility.getString(request.getParameter("operation"));
-
 		long id = DataUtility.getLong(request.getParameter("id"));
 
+		System.out.println(">>>><<<<>><<><<><>**********" + id + op);
+
 		UserModel model = new UserModel();
-
 		if (OP_SAVE.equalsIgnoreCase(op) || OP_UPDATE.equalsIgnoreCase(op)) {
-
 			UserBean bean = (UserBean) populateBean(request);
+			System.out.println(" U ctl DoPost 11111111");
 
 			try {
 				if (id > 0) {
-
+ 
+					// System.out.println("hi i am in dopost update");
 					model.update(bean);
-
 					ServletUtility.setBean(bean, request);
-
+					System.out.println(" U ctl DoPost 222222");
 					ServletUtility.setSuccessMessage("User is successfully Updated", request);
 
 				} else {
 					System.out.println(" U ctl DoPost 33333");
-
 					long pk = model.add(bean);
-
-					bean.setId(pk);
+					// bean.setId(pk);
+					// ServletUtility.setBean(bean, request);
 
 					ServletUtility.setSuccessMessage("User is successfully Added", request);
+					//ServletUtility.forward(getView(), request, response);
+					bean.setId(pk);
 				}
-				
-				
+				/*
+				 * ServletUtility.setBean(bean, request);
+				 * ServletUtility.setSuccessMessage("User is successfully saved", request);
+				 */
+
 			} catch (ApplicationException e) {
 				log.error(e);
 				ServletUtility.handleException(e, request, response);
@@ -313,9 +303,8 @@ public class UserCtl extends BaseCtl {
 			return;
 		}
 		log.debug("UserCtl Method doPostEnded");
-		
-		System.out.println("explain");
 		ServletUtility.forward(getView(), request, response);
+
 
 	}
 

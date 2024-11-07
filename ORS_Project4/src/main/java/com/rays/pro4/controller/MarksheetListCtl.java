@@ -3,7 +3,7 @@ package com.rays.pro4.controller;
 import java.io.IOException;
 import java.util.List;
 
-//simport javax.naming.MalformedLinkException;
+import javax.naming.MalformedLinkException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -67,8 +67,10 @@ public class MarksheetListCtl extends BaseCtl {
 		MarksheetBean bean = new MarksheetBean();
 
 		bean.setId(DataUtility.getLong(request.getParameter("rollNo123")));
-		// bean.setRollNo(DataUtility.getString(request.getParameter("rollNo")));
+	    bean.setRollNo(DataUtility.getString(request.getParameter("rollNo")));
 		bean.setName(DataUtility.getString(request.getParameter("name")));
+		bean.setTotal(DataUtility.getInt(request.getParameter("total")));
+
 		return bean;
 	}
 

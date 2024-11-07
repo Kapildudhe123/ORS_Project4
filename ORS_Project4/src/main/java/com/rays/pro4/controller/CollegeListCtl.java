@@ -84,7 +84,7 @@ private static Logger log = Logger.getLogger(CollegeListCtl.class);
 
         CollegeBean bean = (CollegeBean) populateBean(request);
 
-       // String [] ids = request.getParameterValues("ids");
+        String [] ids = request.getParameterValues("ids");
         CollegeModel model = new CollegeModel();
 
         List list = null;

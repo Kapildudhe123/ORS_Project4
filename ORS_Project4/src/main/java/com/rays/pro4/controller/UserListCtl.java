@@ -41,17 +41,14 @@ public class UserListCtl extends BaseCtl {
 	protected void preload(HttpServletRequest request) {
 
 		RoleModel rmodel = new RoleModel();
-
 		UserModel umodel = new UserModel();
 
 		try {
 			List rlist = rmodel.list(0, 0);
-
 			List ulist = umodel.list(0, 0);
 
 			request.setAttribute("RoleList", rlist);
-
-			request.setAttribute("LoginId", ulist);
+			request.setAttribute("dto", ulist);
 
 		} catch (ApplicationException e) {
 			e.printStackTrace();
@@ -68,14 +65,14 @@ public class UserListCtl extends BaseCtl {
 	protected BaseBean populateBean(HttpServletRequest request) {
 		UserBean bean = new UserBean();
 
-	 	bean.setFirstName(DataUtility.getString(request.getParameter("firstName")));
-
+		// bean.setId(DataUtility.getLong(request.getParameter("id")));
+		bean.setFirstName(DataUtility.getString(request.getParameter("firstName")));
+//   bean.setLastName(DataUtility.getString(request.getParameter("LastName")));
 		bean.setRoleId(DataUtility.getLong(request.getParameter("roleid")));
 		bean.setLogin(DataUtility.getString(request.getParameter("loginid")));
-		bean.setDob(DataUtility.getDate(request.getParameter("dob")));
-		bean.setId(DataUtility.getLong(request.getParameter("id")));
-		bean.setGender(DataUtility.getString(request.getParameter("gender")));
-		bean.setLastName(DataUtility.getString(request.getParameter("lastName")));
+	//	bean.setDob(DataUtility.getDate(request.getParameter("dob")));
+		bean.setId(DataUtility.getLong(request.getParameter("dob")));
+		// System.out.println("dob>>>> "+request.getParameter("dob"));
 
 		return bean;
 	}
@@ -91,7 +88,6 @@ public class UserListCtl extends BaseCtl {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		log.debug("UserListCtl doGet Start");
-		System.out.println("UserListCtl doGet Start");
 		List list = null;
 		List nextList = null;
 
@@ -100,10 +96,11 @@ public class UserListCtl extends BaseCtl {
 
 		UserBean bean = (UserBean) populateBean(request);
 		String op = DataUtility.getString(request.getParameter("operation"));
-		System.out.println(op + " mila list ki link pai");
+
 //	        get the selected checkbox ids array for delete list
 
-		// String[] ids = request.getParameterValues("ids");
+		String[] ids = request.getParameterValues("ids");
+
 		UserModel model = new UserModel();
 
 		try {
@@ -115,13 +112,15 @@ public class UserListCtl extends BaseCtl {
 			request.setAttribute("nextlist", nextList.size());
 
 			ServletUtility.setList(list, request);
+
 			if (list == null || list.size() == 0) {
 				ServletUtility.setErrorMessage("No record found ", request);
 			}
+
 			ServletUtility.setList(list, request);
 			ServletUtility.setPageNo(pageNo, request);
 			ServletUtility.setPageSize(pageSize, request);
-			// ServletUtility.setBean(bean, request);
+			ServletUtility.setBean(bean, request);
 			ServletUtility.forward(getView(), request, response);
 		} catch (ApplicationException e) {
 			log.error(e);
@@ -153,9 +152,13 @@ public class UserListCtl extends BaseCtl {
 		pageSize = (pageSize == 0) ? DataUtility.getInt(PropertyReader.getValue("page.size")) : pageSize;
 
 		String op = DataUtility.getString(request.getParameter("operation"));
+
 		UserBean bean = (UserBean) populateBean(request);
+
 		// get the selected checkbox ids array for delete list
+
 		String[] ids = request.getParameterValues("ids");
+
 		UserModel model = new UserModel();
 
 		if (OP_SEARCH.equalsIgnoreCase(op)) {
@@ -222,7 +225,6 @@ public class UserListCtl extends BaseCtl {
 	 */
 	@Override
 	protected String getView() {
-
 		return ORSView.USER_LIST_VIEW;
 	}
 

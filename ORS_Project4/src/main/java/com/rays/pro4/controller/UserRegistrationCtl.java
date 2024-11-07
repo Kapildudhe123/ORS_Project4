@@ -46,18 +46,16 @@ public class UserRegistrationCtl extends BaseCtl {
 	protected boolean validate(HttpServletRequest request) {
 
 		log.debug("UserRegistrationCtl Method validate Started");
-
+		System.out.println("UserRegistrationCtl Method validate Started");
 		boolean pass = true;
 
 		String login = request.getParameter("login");
 		String dob = request.getParameter("dob");
 
 		if (DataValidator.isNull(request.getParameter("firstName"))) {
-			System.out.println("is null me ja rahi ");
 			request.setAttribute("firstName", PropertyReader.getValue("error.require", "First Name"));
 			pass = false;
 		} else if (!DataValidator.isName(request.getParameter("firstName"))) {
-			System.out.println("Data validator is name me ja rahi ");
 			request.setAttribute("firstName", "First name must contains alphabet only");
 			pass = false;
 		}
@@ -69,7 +67,8 @@ public class UserRegistrationCtl extends BaseCtl {
 			request.setAttribute("lastName", "Last name must contains alphabet only");
 			pass = false;
 		}
-		// System.out.println(login+"sssssssssssssssssssssssssss");
+		// System.out.println(login+"ssssssssssssssssssssssss");
+
 		if (DataValidator.isNull(login)) {
 			request.setAttribute("login", PropertyReader.getValue("error.require", "Login Id"));
 			pass = false;
@@ -117,7 +116,7 @@ public class UserRegistrationCtl extends BaseCtl {
 			pass = false;
 		}
 		log.debug("UserRegistrationCtl Method validate Ended");
-
+		System.out.println("UserRegistrationCtl Method validate Ended");
 		return pass;
 	}
 
@@ -131,10 +130,10 @@ public class UserRegistrationCtl extends BaseCtl {
 	protected BaseBean populateBean(HttpServletRequest request) {
 
 		log.debug("UserRegistrationCtl Method populatebean Started");
-
+		System.out.println("UserRegistrationCtl Method populatebean Started");
 		UserBean bean = new UserBean();
 
-	     	bean.setRoleId(RoleBean.STUDENT);
+		bean.setRoleId(RoleBean.STUDENT);
 
 		bean.setId(DataUtility.getLong(request.getParameter("id")));
 		bean.setFirstName(DataUtility.getString(request.getParameter("firstName")));
@@ -145,7 +144,7 @@ public class UserRegistrationCtl extends BaseCtl {
 		bean.setGender(DataUtility.getString(request.getParameter("gender")));
 		bean.setDob(DataUtility.getDate(request.getParameter("dob")));
 		bean.setMobileNo(DataUtility.getString(request.getParameter("mobileNo")));
-//System.out.println("-------------------"+request.getParameter("dob"));
+		// System.out.println("------------------"+request.getParameter("dob"));
 
 		populateDTO(bean, request);
 		log.debug("UserRegistrationCtl Method populatebean Ended");
@@ -164,7 +163,9 @@ public class UserRegistrationCtl extends BaseCtl {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		log.debug("UserRegistrationCtl Method doGet Started");
+		System.out.println("UserRegistrationCtl doGet Se Forward");
 		ServletUtility.forward(getView(), request, response);
+  
 
 	}
 
@@ -180,7 +181,7 @@ public class UserRegistrationCtl extends BaseCtl {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		log.debug("UserRegistrationCtl Method doPost Started");
-
+		System.out.println("UserRegistrationCtl Method doPost Started");
 		String op = DataUtility.getString(request.getParameter("operation"));
 
 //get model
@@ -190,10 +191,11 @@ public class UserRegistrationCtl extends BaseCtl {
 		if (OP_SIGN_UP.equalsIgnoreCase(op)) {
 			UserBean bean = (UserBean) populateBean(request);
 			try {
+				System.out.println("UserRegistrationCtl Method doPost Operation SignUp Mila");
 				long pk = model.registerUser(bean);
 
-				bean.setId(pk);
-			
+			//	bean.setId(pk);
+				// request.getSession().setAttribute("UserBean", bean);
 				ServletUtility.setSuccessMessage("User Successfully Register", request);
 				ServletUtility.forward(getView(), request, response);
 				return;
@@ -205,10 +207,12 @@ public class UserRegistrationCtl extends BaseCtl {
 			} catch (DuplicateRecordException e) {
 				log.error(e);
 				ServletUtility.setBean(bean, request);
+				System.out.println("UserRegistrationCtl Method doPost Error Msg And Forward ");
 				ServletUtility.setErrorMessage("Login Id Already Exists", request);
 				ServletUtility.forward(getView(), request, response);
 			}
 		} else if (OP_RESET.equalsIgnoreCase(op)) {
+			System.out.println("UserRegistrationCtl Method doPost Operation Reset Mila Redirect UserRegCtl");
 			ServletUtility.redirect(ORSView.USER_REGISTRATION_CTL, request, response);
 		}
 

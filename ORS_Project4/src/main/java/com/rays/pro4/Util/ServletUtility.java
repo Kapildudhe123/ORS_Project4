@@ -19,7 +19,7 @@ import com.rays.pro4.controller.ORSView;
  * redirect, handle generic exception, manage success and error message, manage
  * default Bean and List, manage pagination parameters.
  * 
- * @author Kapil Dudhe
+ * @author Kapil Dudhe 
  *
  */
 public class ServletUtility {
@@ -35,12 +35,11 @@ public class ServletUtility {
 	 */
 	public static void forward(String page, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		
 		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.forward(request, response);
-	}
+  	}
 
-	/*    *//**
+	/*    
 			 * Forward to Layout View.
 			 *
 			 * @param page     the page
@@ -82,12 +81,11 @@ public class ServletUtility {
 	 */
 	public static void handleException(Exception e, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		// System.out.println("servlet ulitity error ctl------------>");
+		// System.out.println("servletulitity error ctl------------>");
 		request.setAttribute("exception", e);
 //        response.sendRedirect(ORSView.ERROR_CTL);
 //        
 	}
-
 	/**
 	 * Gets error message from request.
 	 *
@@ -108,7 +106,7 @@ public class ServletUtility {
 	/*    *//**
 			 * returns all input error messages.
 			 *
-			 * @param msg     the msg
+			 * @param msg  the msg
 			 * @param request the request
 			 * @deprecated Use HTMLUtil method instead
 			 */
@@ -144,6 +142,7 @@ public class ServletUtility {
 		} else {
 			return val;
 		}
+	
 	}
 
 	/**
@@ -154,7 +153,6 @@ public class ServletUtility {
 	 */
 	public static void setErrorMessage(String msg, HttpServletRequest request) {
 		request.setAttribute(BaseCtl.MSG_ERROR, msg);
-		System.out.println("set error msg servlet utility");
 	}
 
 	/**
@@ -165,18 +163,17 @@ public class ServletUtility {
 	 */
 	public static String getErrorMessage(HttpServletRequest request) {
 		String val = (String) request.getAttribute(BaseCtl.MSG_ERROR);
-		System.out.println("get error msg servlet utility");
 		if (val == null) {
 			return "";
 		} else {
 			return val;
 		}
 	}
-
+	
 	/**
 	 * Sets success message to request.
 	 *
-	 * @param msg     the msg
+	 * @param msg  the msgr
 	 * @param request the request
 	 */
 	public static void setSuccessMessage(String msg, HttpServletRequest request) {
@@ -225,7 +222,6 @@ public class ServletUtility {
 	 */
 
 	public static BaseBean getBean(HttpServletRequest request) {
-
 		return (BaseBean) request.getAttribute("bean");
 	}
 
@@ -336,3 +332,4 @@ public class ServletUtility {
 	}
 
 }
+

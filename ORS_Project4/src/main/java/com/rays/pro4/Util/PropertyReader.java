@@ -2,6 +2,7 @@ package com.rays.pro4.Util;
 
 import java.util.ResourceBundle;
 
+
 /**
  * Read the property values from application properties file using Resource
  * Bundle.
@@ -9,6 +10,7 @@ import java.util.ResourceBundle;
  * @author Kapil Dudhe
  *
  */
+
 
 public class PropertyReader {
 
@@ -20,16 +22,15 @@ public class PropertyReader {
 	 * @param key
 	 * @return
 	 */
-
+	
+	
 	public static String getValue(String key) {
 
 		String val = null;
-		System.out.println(val + "p.r. ki get value ");
+
 		try {
 			val = rb.getString(key);
-			System.out.println(key + "p.r. ki get value try block");
 		} catch (Exception e) {
-			System.out.println(val + "p.r. ki get value catch block ");
 			val = key;
 		}
 
@@ -45,26 +46,24 @@ public class PropertyReader {
 	 * @return String
 	 */
 	public static String getValue(String key, String param) {
-
 		String msg = getValue(key);
-		System.out.println("   kye " + msg);
-
-		msg = msg.replace("{0}", param);
-		System.out.println(msg.replace("{0}", param) + "  p.r. ki get value ");
+ 		msg = msg.replace("{0}", param);
 		return msg;
 	}
 
+	
 	/**
 	 * Gets String after placing params values
 	 *
 	 *
-	 * jh
-	 * 
+	 *
 	 * @param key
 	 * @param params
 	 * @return
 	 */
-
+	
+	
+	
 	public static String getValue(String key, String[] params) {
 		String msg = getValue(key);
 		for (int i = 0; i < params.length; i++) {
@@ -80,11 +79,8 @@ public class PropertyReader {
 	 */
 
 	public static void main(String[] args) {
-
 		String[] params = { "Roll No" };
-		System.out.println("p.r. ki get value Roll No");
 		System.out.println(PropertyReader.getValue("error.require", params));
 	}
 
 }
-

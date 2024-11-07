@@ -60,7 +60,7 @@
 						<th><font size="5px"> Add User </font></th>
 					</tr>
 					<%
-						}
+					}
 					%>
 				</h1>
 
@@ -113,7 +113,7 @@
 					<td><input type="text" name="login"
 						placeholder="Enter EmailId" size="25"
 						value="<%=DataUtility.getStringData(bean.getLogin())%>"
-						<%=(bean.getId() > 0) ? "" : ""%>></td>
+						<%=(bean.getId() > 0) ? "readonly" : ""%>></td>
 					<td style="position: fixed"><font color="red"> <%=ServletUtility.getErrorMessage("login", request)%></font></td>
 				</tr>
 
@@ -164,15 +164,13 @@
 				</tr>
 
 				<tr>
-					<th align="left">Gender <span style="color: red" size="25">*</span>
-						:
+					<th align="left">Gender <span style="color: red">*</span> :
 					</th>
 					<td>
 						<%
 							HashMap map = new HashMap();
 							map.put("Male", "Male");
 							map.put("Female", "Female");
-							//  map.put("other", "other");
 
 							String hlist = HTMLUtility.getList("gender", String.valueOf(bean.getGender()), map);
 						%> <%=hlist%>
@@ -199,9 +197,8 @@
 						:
 					</th>
 					<td><input type="text" name="dob"
-						placeholder="Enter Date Of Birth" size="25" style="width: 210px"
-						readonly="readonly" id="udatee"
-						value="<%=DataUtility.getDateString(bean.getDob())%>"></td>
+						placeholder="Enter Date Of Birth" size="25" readonly="readonly"
+						id="udatee" value="<%=DataUtility.getDateString(bean.getDob())%>"></td>
 					<td style="position: fixed;"><font color="red"> <%=ServletUtility.getErrorMessage("dob", request)%></font></td>
 				</tr>
 				<tr>
@@ -212,8 +209,8 @@
 				<tr>
 					<th align="left">Mobile No <span style="color: red">*</span> :
 					</th>
-					<td><input type="text" style="width: 210px" name="mobileNo"
-						placeholder="Enter Mobile No"
+					<td><input type="number" style="width: 212px" name="mobileNo"
+						maxlength="10" placeholder="Enter Mobile No" size="25"
 						value="<%=DataUtility.getStringData(bean.getMobileNo())%>"></td>
 					<td style="position: fixed"><font color="red"> <%=ServletUtility.getErrorMessage("mobileNo", request)%></font></td>
 				</tr>

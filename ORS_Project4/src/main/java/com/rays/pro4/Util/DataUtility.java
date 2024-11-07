@@ -35,13 +35,9 @@ public class DataUtility {
 	 * @return
 	 */
 	public static String getString(String val) {
-		
 		if (DataValidator.isNotNull(val)) {
-			
-			System.out.println(val +"76________data utility get string  ");
 			return val.trim();
 		} else {
-			System.out.println(val +  "_2_______data utility get string  ");
 			return val;
 		}
 	}

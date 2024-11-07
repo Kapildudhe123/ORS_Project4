@@ -20,13 +20,12 @@ public final class JDBCDataSource {
 
 	 /**
      * JDBC Database connection pool ( DCP )
-     *///
+     */
 	
 	
     private static JDBCDataSource datasource;
 
     private JDBCDataSource() {
-   
     }
 
     private ComboPooledDataSource cpds = null;
@@ -50,8 +49,7 @@ public final class JDBCDataSource {
                 e.printStackTrace();
             }
             
-            
-            
+                
             datasource.cpds.setJdbcUrl(rb.getString("url"));
             datasource.cpds.setUser(rb.getString("username"));
             datasource.cpds.setPassword(rb.getString("password"));
